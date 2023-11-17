@@ -2,3 +2,5 @@
 /lake-packages/*
 .DS_Store
 scratch.lean
+*.olean
+
