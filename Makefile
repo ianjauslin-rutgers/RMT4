@@ -14,6 +14,10 @@ doc:
 	-lake build RMT4:docs
 	lake exe doc-gen4 index
 
+blueprint: doc
+	make -C blueprint
+	make -C blueprint clean-aux
+
 clean-doc:
 	rm -rf build/doc/*
 

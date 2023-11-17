@@ -1,0 +1,42 @@
+\documentclass{report}
+
+\usepackage{amsmath, amsthm}
+\usepackage[showmore, dep_graph, coverage, project=../../]{blueprint}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\dochome{../../build/doc}
+
+\title{Definition of the Complex logarithm}
+\author{Rutgers Lean Seminar}
+
+\begin{document}
+\maketitle
+
+\chapter{Test}
+
+\section{Yes, a test!}
+
+This is a test.
+If I want to link to a definition in the lean project, I do this:
+\begin{definition}
+  \label{def:curvint}
+  \lean{curvint, curvint'}
+  $$
+    \int_{t_1}^{t_2}dt\ \partial\gamma(t)f(\gamma(t))
+  $$
+\end{definition}
+
+Now, let me link to a theorem:
+\begin{theorem}
+  \label{theo:hasDerivAt_curvint}
+  \lean{hasDerivAt_curvint}
+  For any $t_1<t_2$...
+\end{theorem}
+
+\end{document}

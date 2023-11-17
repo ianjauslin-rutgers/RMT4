@@ -1,0 +1,63 @@
+This is a blueprint for the Complex Logarithm project.
+
+The blueprint is, in most part, an HTML render of a LaTeX document, which is
+located at src/blueprint.tex.
+
+The HTMl render is handled by plasTeX, which was written by Patrick Massot. So
+to generate the blueprint, you will need to get plasTeX, which is available
+as a pip package:
+  pip install plasTeX
+or from github:
+  https://github.com/plastex/plastex
+Basic usage of plasTeX is documented here:
+  http://plastex.github.io/plastex/getting_started/
+and, in more detail, here:
+  http://plastex.github.io/plastex/plastex/index.html
+
+However, blueprint offers more than just an HTML version of the documentation:
+it automatically links lean code with theorems, lemmas and definitions in the
+LaTeX file.
+
+For this to work, you will need to download the leanblueprint plugin. A lean 4
+version is available from
+  https://github.com/utensil/leanblueprint/tree/lean4-only
+and a lean 3 version is available from
+  https://github.com/PatrickMassot/leanblueprint
+Installing this is not as easy as plasTeX. Here's a simple procedure:
+'git clone' the repository, 'cd' to it, and then run
+  python -m build --wheel --no-isolation
+  python -m installer --destdir="$pkgdir" dist/*.whl
+(or, better yet, if you know how, build a package for your package manager to
+do this). This will require the 'build' and 'installer' python package, which
+you can get from pip:
+  pip install build
+  pip install installer
+
+Now, the leanblueprint plugin doesn't actually link to lean code. Instead, it
+links to your project documentation. In particular, this means you need project
+documentation, in the format supported by leanblueprint. Fortunately, you can
+generate the documentation automatically using 'doc-gen4':
+  https://github.com/leanprover/doc-gen4
+To do so, add the following to your project's 'lakefile.lean':
+  require «doc-gen4» from git "https://github.com/leanprover/doc-gen4" @ "main"
+then run
+  lake update
+  lake build RMT4:docs
+  lake exe doc-gen4 index
+(replace 'RMT4' with the name of your project). This will take a while! The
+generated doc will be in the directory 'build/doc'.
+
+OK, now you are ready to generate the blueprint.
+  cd blueprint
+  plastex -c plastec.cfg src/blueprint.tex
+This will generate the blueprint in the 'blueprint/web' directory.
+
+Now, to view the blueprint and docs, 'cd' back to the project directory
+  cd ../
+and start an http server (if you don't do this, you won't be able to get nice
+latex math symbols):
+  python -m http.server
+Next, from a browser, open
+  http://localhost:8000/blueprint/web
+and you should be good to go!
+
