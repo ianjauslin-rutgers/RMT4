@@ -23,15 +23,8 @@ version is available from
   https://github.com/utensil/leanblueprint/tree/lean4-only
 and a lean 3 version is available from
   https://github.com/PatrickMassot/leanblueprint
-Installing this is not as easy as plasTeX. Here's a simple procedure:
-'git clone' the repository, 'cd' to it, and then run
-  python -m build --wheel --no-isolation
-  python -m installer --destdir="$pkgdir" dist/*.whl
-(or, better yet, if you know how, build a package for your package manager to
-do this). This will require the 'build' and 'installer' python package, which
-you can get from pip:
-  pip install build
-  pip install installer
+To install the lean4 version, use
+  pip install git+https://github.com/utensil/leanblueprint.git@lean4-only
 
 Now, the leanblueprint plugin doesn't actually link to lean code. Instead, it
 links to your project documentation. In particular, this means you need project
@@ -43,13 +36,17 @@ To do so, add the following to your project's 'lakefile.lean':
 then run
   lake update
   lake build RMT4:docs
-  lake exe doc-gen4 index
 (replace 'RMT4' with the name of your project). This will take a while! The
-generated doc will be in the directory 'build/doc'.
+generated doc will be in the directory 'build/doc'. Now, here's something that
+I've found that is useful, but is not officially supported: if, for some
+reason, the doc generation is incomplete, it will be wholy unusable, as
+supporting html, css and js files will not be copied to build/doc. You can make
+the incomplete doc usable by running
+  lake exe doc-gen4 index
 
 OK, now you are ready to generate the blueprint.
   cd blueprint
-  plastex -c plastec.cfg src/blueprint.tex
+  plastex -c plastex.cfg src/blueprint.tex
 This will generate the blueprint in the 'blueprint/web' directory.
 
 Now, to view the blueprint and docs, 'cd' back to the project directory
