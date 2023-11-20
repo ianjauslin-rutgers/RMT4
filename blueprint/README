@@ -20,11 +20,9 @@ LaTeX file.
 
 For this to work, you will need to download the leanblueprint plugin. A lean 4
 version is available from
-  https://github.com/utensil/leanblueprint/tree/lean4-only
-and a lean 3 version is available from
   https://github.com/PatrickMassot/leanblueprint
-To install the lean4 version, use
-  pip install git+https://github.com/utensil/leanblueprint.git@lean4-only
+To install it, use
+  pip install git+https://github.com/PatrickMassot/leanblueprint
 
 Now, the leanblueprint plugin doesn't actually link to lean code. Instead, it
 links to your project documentation. In particular, this means you need project
